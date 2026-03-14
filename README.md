@@ -43,7 +43,23 @@ Click to see the detailed dropdown:
 ✕ Quit
 ```
 
-## Quick Start
+## 📥 Installation (For Regular Users)
+
+The easiest way to install mactemp is to download the pre-built `.dmg` file.
+
+1. Go to the [Releases page](https://github.com/firdaus1453/mactemp/releases/latest) and download `mactemp.dmg`.
+2. Double-click the downloaded `.dmg` file to open it.
+3. **Drag and drop** the `mactemp.app` icon into the **Applications** folder shortcut.
+4. Open your Applications folder (or Launchpad).
+5. **Important:** Because this is an indie open-source app, macOS Gatekeeper might block it the first time. To open it safely:
+   - **Right-click** (or Control-click) on `mactemp.app`.
+   - Select **Open** from the menu.
+   - Click **Open** again on the pop-up warning.
+6. The app will quietly start and appear in your menu bar at the top of the screen!
+
+---
+
+## 🛠 Quick Start (For Developers)
 
 ### Prerequisites
 
