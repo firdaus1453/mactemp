@@ -28,6 +28,12 @@ mkdir -p "${RESOURCES_DIR}"
 # Copy binary
 cp "target/release/${APP_NAME}" "${MACOS_DIR}/${APP_NAME}"
 
+# Copy icon
+if [ -f "assets/mactemp.icns" ]; then
+    cp "assets/mactemp.icns" "${RESOURCES_DIR}/mactemp.icns"
+    echo "Icon copied to bundle"
+fi
+
 # Create Info.plist
 cat > "${CONTENTS_DIR}/Info.plist" << 'PLIST'
 <?xml version="1.0" encoding="UTF-8"?>
@@ -50,6 +56,8 @@ cat > "${CONTENTS_DIR}/Info.plist" << 'PLIST'
     <string>APPL</string>
     <key>LSMinimumSystemVersion</key>
     <string>10.15</string>
+    <key>CFBundleIconFile</key>
+    <string>mactemp</string>
     <key>LSUIElement</key>
     <true/>
     <key>NSHighResolutionCapable</key>

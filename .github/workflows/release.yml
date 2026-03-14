@@ -46,6 +46,11 @@ jobs:
 
           mkdir -p "${MACOS_DIR}" "${RESOURCES_DIR}"
           cp target/universal/release/mactemp "${MACOS_DIR}/mactemp"
+          
+          # Copy icon if it exists
+          if [ -f "assets/mactemp.icns" ]; then
+            cp assets/mactemp.icns "${RESOURCES_DIR}/mactemp.icns"
+          fi
 
           cat > "${CONTENTS_DIR}/Info.plist" << 'PLIST'
           <?xml version="1.0" encoding="UTF-8"?>
@@ -68,6 +73,8 @@ jobs:
               <string>APPL</string>
               <key>LSMinimumSystemVersion</key>
               <string>10.15</string>
+              <key>CFBundleIconFile</key>
+              <string>mactemp</string>
               <key>LSUIElement</key>
               <true/>
               <key>NSHighResolutionCapable</key>
