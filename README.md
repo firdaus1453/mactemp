@@ -1,5 +1,7 @@
 # mactemp 🌡️
 
+<img src="assets/icon_rounded.png" width="128" align="right" alt="mactemp icon" />
+
 A lightweight macOS menu bar system monitor written in Rust. Displays real-time CPU/GPU temperature, CPU usage, and RAM usage directly in the macOS menu bar.
 
 Built for **MacBook Pro 16-inch 2019 (Intel i9-9980HK)** and compatible with other Intel Macs running macOS 10.15+.
@@ -13,7 +15,8 @@ Built for **MacBook Pro 16-inch 2019 (Intel i9-9980HK)** and compatible with oth
 - **Auto-refresh** — updates every 2 seconds
 - **Dropdown menu** — click for detailed system stats
 - **Auto Launch at Login** — toggle via the dropdown menu
-- **Minimal footprint** — ~366 KB binary, <2% CPU, <50 MB RAM
+- **Single Instance** — prevents multiple app instances from running at once
+- **Minimal footprint** — ~368 KB binary (~456 KB `.app` total), <2% CPU, <50 MB RAM
 
 ## Menu Bar Display
 
@@ -78,6 +81,17 @@ This creates `mactemp.app` which you can:
 
 The `.app` bundle has `LSUIElement=true` set, meaning it runs as a menu bar-only app with no Dock icon.
 
+### Package as .dmg for Distribution
+
+```bash
+chmod +x create_dmg.sh
+./create_dmg.sh
+```
+
+This creates a highly compressed `mactemp.dmg` file with an Applications folder shortcut for drag-and-drop installation.
+
+Alternatively, just push a tag `v*` to trigger the GitHub Actions workflow which automatically builds a **Universal Binary** and publishes a `.dmg` release!
+
 ## Project Structure
 
 ```
@@ -86,11 +100,14 @@ mactemp/
 ├── create_app_bundle.sh    # .app bundle packaging script
 ├── README.md               # This file
 └── src/
-    ├── main.rs             # Entry point, event loop, wiring
-    ├── smc.rs              # SMC temperature reading (CPU/GPU)
+    ├── main.rs             # Entry point, event loop, wiring, locking
+    ├── smc.rs              # SMC temperature reading (CPU/GPU die)
     ├── system_stats.rs     # CPU usage and RAM monitoring
     ├── menu.rs             # Menu bar title + dropdown construction
     └── autostart.rs        # LaunchAgent auto-start toggle
+├── assets/                 # App icon and assets
+├── .github/workflows/      # GitHub Actions CI/CD pipeline
+└── create_dmg.sh           # DMG packaging script
 ```
 
 ## How SMC Temperature Reading Works
@@ -98,11 +115,12 @@ mactemp/
 The **System Management Controller (SMC)** is a hardware chip in every Mac that manages thermal sensors, fans, and power. Temperature reading works as follows:
 
 1. **Connection** — opens an IOKit connection to the `AppleSMC` service
-2. **Sensor Keys** — reads sensors using FourCC keys:
-   - `TC0P` — CPU proximity temperature
-   - `TG0P` — GPU proximity temperature
-3. **Decoding** — raw bytes are converted to Celsius (`f32` values)
-4. **No root required** — the SMC service is readable by the current user
+2. **Sensor Keys** — reads sensors using FourCC keys that target the actual chip die:
+   - `TC0D` — CPU **die** temperature (matches `powermetrics`)
+   - `TG0D` — GPU **die** temperature (matches `powermetrics`)
+3. **Fallback** — if the die sensor is unavailable, falls back to proximity sensors (`TC0P` / `TG0P`)
+4. **Decoding** — raw bytes are converted to Celsius (`f64` values)
+5. **No root required** — the SMC service is readable by the current user
 
 The `macsmc` crate handles all of this, providing a safe Rust API.
 
@@ -127,7 +145,8 @@ No async runtime, no heavy frameworks.
 
 | Metric | Value |
 |---|---|
-| Binary size | ~366 KB |
+| Binary size | ~368 KB |
+| Total .app size | ~456 KB |
 | CPU usage | <2% |
 | Memory usage | <50 MB |
 | Refresh interval | 2 seconds |
