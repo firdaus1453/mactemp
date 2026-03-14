@@ -6,17 +6,19 @@ A lightweight macOS menu bar system monitor written in Rust. Displays real-time 
 
 Built for **MacBook Pro 16-inch 2019 (Intel i9-9980HK)** and compatible with other Intel Macs running macOS 10.15+.
 
-## Features
+## ✨ Features
 
-- **CPU Temperature** — read directly from the SMC (System Management Controller)
-- **GPU Temperature** — discrete GPU temperature (if available)
-- **CPU Usage** — overall CPU utilization percentage
-- **RAM Usage** — used/total memory with percentage
-- **Auto-refresh** — updates every 2 seconds
-- **Dropdown menu** — click for detailed system stats
-- **Auto Launch at Login** — toggle via the dropdown menu
-- **Single Instance** — prevents multiple app instances from running at once
-- **Minimal footprint** — ~368 KB binary (~456 KB `.app` total), <2% CPU, <50 MB RAM
+- ⚡️ **Ultra-Lightweight & Fast** — Written in 100% pure Rust. No Electron, no web views, no heavy frameworks.
+- 🎯 **Pinpoint Accuracy** — Reads temperature directly from the raw hardware **die sensors** (`TC0D` / `TG0D`) via macOS Kernel (IOKit).
+- 🥶 **Zero Bloat** — Consumes less than `< 2% CPU` and `< 50 MB RAM`. The entire application is roughly `~450 KB`!
+- 🖥 **Native macOS Experience** — Integrates seamlessly into the Menu Bar with an elegant dropdown UI and a beautiful squircle icon.
+- 🔒 **Privacy First** — Fully local processing. Zero telemetry, zero analytics, zero internet connection required.
+- 🚀 **Set and Forget** — Includes a built-in "Auto Launch at Login" toggle so monitoring is always one click away.
+- 🔍 **Comprehensive Stats** — Real-time tracking of:
+  - CPU Die Temperature
+  - Dedicated GPU Die Temperature (auto-hides if using Integrated Graphics)
+  - Overall CPU Usage (%)
+  - Physical RAM Usage (GB and %)
 
 ## Menu Bar Display
 
