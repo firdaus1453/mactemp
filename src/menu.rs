@@ -70,25 +70,25 @@ pub fn build_menu(
     // CPU section
     items.push(MenuItem::new(
         format!("  CPU Usage: {:.1}%", stats.cpu_usage),
-        None,
+        Some(Box::new(|| {})),
         None,
     ));
 
     if let Some(cpu_temp) = temps.cpu_temp {
         items.push(MenuItem::new(
             format!("  CPU Temperature: {:.1}°C", cpu_temp),
-            None,
+            Some(Box::new(|| {})),
             None,
         ));
     } else {
-        items.push(MenuItem::new("  CPU Temperature: N/A", None, None));
+        items.push(MenuItem::new("  CPU Temperature: N/A", Some(Box::new(|| {})), None));
     }
 
     // GPU section (only show if temperature is available)
     if let Some(gpu_temp) = temps.gpu_temp {
         items.push(MenuItem::new(
             format!("  GPU Temperature: {:.1}°C", gpu_temp),
-            None,
+            Some(Box::new(|| {})),
             None,
         ));
     }
@@ -99,17 +99,17 @@ pub fn build_menu(
     // RAM section
     items.push(MenuItem::new(
         format!("  RAM Used:  {:.1} GB", stats.ram_used_gb),
-        None,
+        Some(Box::new(|| {})),
         None,
     ));
     items.push(MenuItem::new(
         format!("  RAM Total: {:.1} GB", stats.ram_total_gb),
-        None,
+        Some(Box::new(|| {})),
         None,
     ));
     items.push(MenuItem::new(
         format!("  RAM Usage: {:.1}%", stats.ram_percentage),
-        None,
+        Some(Box::new(|| {})),
         None,
     ));
 
