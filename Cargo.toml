@@ -1,0 +1,26 @@
+[package]
+name = "mactemp"
+version = "0.1.0"
+edition = "2021"
+description = "Lightweight macOS menu bar system monitor"
+authors = ["Muhammad Firdaus"]
+
+[dependencies]
+# macOS status bar integration
+system_status_bar_macos = "0.1"
+
+# SMC temperature sensor reading
+macsmc = "0.1"
+
+# CPU and RAM monitoring
+sysinfo = "0.32"
+
+# Unix system calls (flock for single-instance enforcement)
+libc = "0.2"
+
+[profile.release]
+opt-level = "s"      # Optimize for size
+lto = true           # Link-time optimization
+strip = true         # Strip debug symbols
+codegen-units = 1    # Single codegen unit for better optimization
+panic = "abort"      # Smaller binary with abort on panic
