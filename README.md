@@ -20,6 +20,12 @@ Built for **MacBook Pro 16-inch 2019 (Intel i9-9980HK)** and compatible with oth
   - Overall CPU Usage (%)
   - Physical RAM Usage (GB and %)
 
+## 📸 Screenshot
+
+<p align="center">
+  <img src="assets/screenshot.png" width="600" alt="mactemp screenshot" />
+</p>
+
 ## Menu Bar Display
 
 ```
