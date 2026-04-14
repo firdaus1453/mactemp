@@ -4,7 +4,7 @@
 
 A lightweight macOS menu bar system monitor written in Rust. Displays real-time CPU/GPU temperature, CPU usage, and RAM usage directly in the macOS menu bar.
 
-Built for **MacBook Pro 16-inch 2019 (Intel i9-9980HK)** and compatible with other Intel Macs running macOS 10.15+.
+Built as a **Universal Binary** — runs natively on both **Intel** and **Apple Silicon** (M1/M2/M3/M4) Macs running macOS 10.15+.
 
 ## ✨ Features
 
@@ -175,14 +175,16 @@ No async runtime, no heavy frameworks.
 | Memory usage | <50 MB |
 | Refresh interval | 2 seconds |
 
-## Notes for Apple Silicon Macs
+## Compatibility
 
-This app is built and tested on Intel Macs. On Apple Silicon (M1/M2/M3/M4):
+| Architecture | Status |
+|---|---|
+| Intel (x86_64) | ✅ Fully supported & tested |
+| Apple Silicon (M1/M2/M3/M4) | ✅ Native support via Universal Binary |
 
-- **SMC sensor keys** may differ — the `macsmc` crate has some Apple Silicon support but the FourCC keys are different
-- **Temperature access** — Apple Silicon Macs may use different IOKit interfaces; newer macOS versions (14+) use SMC, older ones (12-13) may need IOHID
-- **Cross-compilation** — to build for Apple Silicon from Intel: `rustup target add aarch64-apple-darwin && cargo build --release --target aarch64-apple-darwin`
-- **Universal binary** — use `lipo` to combine both architectures: `lipo -create target/release/mactemp target/aarch64-apple-darwin/release/mactemp -output mactemp-universal`
+The `.dmg` from [Releases](https://github.com/firdaus1453/mactemp/releases/latest) contains a **Universal Binary** built automatically via GitHub Actions — it runs natively on both Intel and Apple Silicon without Rosetta.
+
+> **Note:** SMC sensor keys may differ between Intel and Apple Silicon. The `macsmc` crate handles this with automatic fallback to alternative sensor keys.
 
 ## License
 
