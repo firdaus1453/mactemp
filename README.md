@@ -10,7 +10,7 @@ Built as a **Universal Binary** — runs natively on both **Intel** and **Apple 
 
 - ⚡️ **Ultra-Lightweight & Fast** — Written in 100% pure Rust. No Electron, no web views, no heavy frameworks.
 - 🎯 **Pinpoint Accuracy** — Reads temperature directly from the raw hardware **die sensors** (`TC0D` / `TG0D`) via macOS Kernel (IOKit).
-- 🥶 **Zero Bloat** — Consumes less than `< 2% CPU` and `< 50 MB RAM`. The entire application is roughly `~450 KB`!
+- 🥶 **Zero Bloat** — Consumes less than `< 2% CPU` and `< 15 MB RAM`. The entire binary is just `~366 KB`!
 - 🖥 **Native macOS Experience** — Integrates seamlessly into the Menu Bar with an elegant dropdown UI and a beautiful squircle icon.
 - 🔒 **Privacy First** — Fully local processing. Zero telemetry, zero analytics, zero internet connection required.
 - 🚀 **Set and Forget** — Includes a built-in "Auto Launch at Login" toggle so monitoring is always one click away.
@@ -169,10 +169,10 @@ No async runtime, no heavy frameworks.
 
 | Metric | Value |
 |---|---|
-| Binary size | ~368 KB |
+| Binary size | ~366 KB |
 | Total .app size | ~456 KB |
 | CPU usage | <2% |
-| Memory usage | <50 MB |
+| Memory usage | < 15 MB |
 | Refresh interval | 2 seconds |
 
 ## Compatibility
